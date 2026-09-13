@@ -101,3 +101,23 @@ milestone headings match the build plan.
   property test under random partitions, and a relay carrying a space it cannot read
   through to a third node that can. Clean under `-race -count=3`.
 - `docs/decisions/0007`: why an exchange pulls rather than offering.
+
+### M6 (partial) — Agent-assisted installation
+
+- `docs/agents/installation.md`: the install and configuration runbook written for an
+  AI agent doing the install. Every command and every failure string in it was executed
+  against a real build first, including the ones that are easy to get wrong: `--home`
+  must precede the positional argument, `memd mcp` needs stdin held open or it returns
+  nothing that looks exactly like a crash, and the `space`/`identity` subcommands refuse
+  to run while a daemon owns the directory.
+- `docs/agents/firstmate.md`: wiring memmesh into a firstmate crew — one key per
+  crewmate because identity is per agent, one daemon per machine rather than per
+  worktree, knowledge routed to its most specific owner rather than everything into
+  memory, and the write-before-teardown habit that is the actual reason the combination
+  is worth anything.
+- Both files state the installing agent's limits rather than only its steps: never
+  create a space the user did not name (the prefix picks the conflict policy), never
+  `space share` unasked (sharing is forward-only and not cleanable), never enable
+  `--relay` on the agent's own initiative (`docs/decisions/0003`).
+- Not included, and still M6: the `SKILL.md`, the Hermes `mcp_servers:` config
+  fragment, and a firstmate teardown-write skill.
