@@ -143,6 +143,12 @@ every MCP client wants:
 Hermes uses a YAML `mcp_servers:` block rather than this JSON shape; the fragment for it
 lands with the rest of the agent integration work in M6.
 
+If you would rather have an AI agent do the install, `docs/agents/installation.md` is
+the runbook written for one — per-harness configuration, the verification command for
+each step, and the failure modes with their actual error strings.
+`docs/agents/firstmate.md` covers a firstmate crew, where the point is memory that
+survives a worktree teardown.
+
 ### Sharing a space with another machine
 
 ```sh
@@ -196,6 +202,7 @@ internal/transport/tailnet   discovery and dialling over Tailscale
 internal/admin               the local control protocol memctl speaks
 internal/daemon              memd assembled, plus the health checks
 docs/decisions/              why things are the way they are
+docs/agents/                 runbooks for an AI agent installing and configuring this
 ```
 
 ## Reading the code
@@ -229,5 +236,7 @@ Named here so nothing reads as finished when it is not:
   explains remedies; it does not apply them.
 - **Blob store for `artifact_ref`** (M5). The kind exists and records carry hashes; there
   is no content-addressed store behind them yet.
-- **Agent skill files and packaging** (M6–M7). No `SKILL.md`, no `AGENTS.md` fragment, no
-  launchd plist or systemd unit, no release build.
+- **Agent skill files and packaging** (M6–M7). `docs/agents/` now carries the installation
+  and firstmate runbooks an agent needs to set this up, but there is still no `SKILL.md`,
+  no Hermes `mcp_servers:` fragment, no launchd plist or systemd unit, and no release
+  build.
